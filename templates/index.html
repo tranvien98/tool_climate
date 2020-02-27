@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Tool Send Climate</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/popper.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/validate.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <table>
+                    <form action="/api/send_climate" method="POST">
+                        <div div class="form-group">
+                            <label >Host broad link:</label>
+                            <input type="text" class="form-control" name="host" required placeholder="192.168.1.39">
+                        </div>
+                        <div div class="form-group">
+                            <label >Ip homeassitant</label>
+                            <input type="text" class="form-control" name="ipx" required placeholder="192.168.1.26">
+                        </div>
+                        <div div class="form-group">
+                            <label >Token</label>
+                            <input type="text" class="form-control" name="token" required placeholder="Lấy token trong HA">
+                        </div>
+                        <div>
+                            <label >Hãng điều hòa</label>
+                            <select class="form-control" name="manafucture" id="manufacture" onchange="changeService({{data}});" >
+                      
+                                {%for dat in data%}
+                                <option>{{dat}}</option>
+                                {%endfor%}
+                            </select>
+
+
+                        </div>
+                        <div>
+                            <label >Model điều hòa</label>
+                            <select class="form-control" name="model" id="model">
+                            </select>
+                        </div>
+                        <div>
+                            <label for="">Thời gian delay</label>
+                            <input class=" form-control" min="1" type="number" name="delay" id="" required value="1"> 
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send</button>
+                    </form>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script>
+    function changeService(data) {
+        var parent = document.getElementById("manufacture");
+        manafacture = parent.value;
+        string = '<select class="form-control" name="model" id="model">';
+        for (i in data) {
+            if (i == manafacture) {
+                for (j in data[i]) {
+
+                    string1 = '<option>' + j + '(' + data[i][j] + ')</option>';
+                    string += string1;
+                }
+            }
+        }
+        string += '</select>'
+        $('#model').replaceWith(string);
+
+        console.log(string);
+    }
+</script>
+
+</html>

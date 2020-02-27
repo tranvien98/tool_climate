@@ -1,0 +1,26 @@
+/* css for file switch_broadlink */
+@media screen and (min-width: 600px){
+    #no_broad {
+        margin-top: 200px;
+        margin-left: 30%;
+    }
+}
+
+#no_broad h4 {
+    font-size: 28px;
+}
+#no_broad a {
+    margin-top: 60px;
+    margin-left: 10%;
+}
+
+.submit-button2 {
+    margin-left: 30px;
+} 
+
+@media screen and (max-width: 600px){
+    .submit-button2 {
+        margin-left: 50px;
+        margin-top: 30px;
+    }
+}
